@@ -51,7 +51,9 @@ class DishController extends Controller
         try {
             $dish = Dish::findOrFail($id);
             return new DishResource($dish);
-        } catch (\Exception $e) {
+        } 
+        catch (\Exception $e) 
+        {
             return response()->json(['message' => 'dish not found'], 404);
         }
     }
@@ -70,11 +72,14 @@ class DishController extends Controller
             'description' => 'required|string|max:200',
             'price' => 'required|numeric',
         ]);
-        try {
+        try
+        {
             $dishToUpdate = Dish::findOrFail($id);
             $dishToUpdate->update($request->all());
             return new DishResource($dishToUpdate);
-        } catch (\Exception $e) {
+        } 
+        catch (\Exception $e) 
+        {
             return response()->json(['message' => 'dish not found'], 404);
         }
     }
