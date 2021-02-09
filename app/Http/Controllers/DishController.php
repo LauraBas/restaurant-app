@@ -48,8 +48,12 @@ class DishController extends Controller
      */
     public function show($id)
     {
-        $dish = Dish::findOrFail($id);
-        return new DishResource($dish);
+        try {
+            $dish = Dish::findOrFail($id);
+            return new DishResource($dish);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'dish not found'], 404);
+        }
     }
 
     /**
@@ -66,10 +70,13 @@ class DishController extends Controller
             'description' => 'required|string|max:200',
             'price' => 'required|numeric',
         ]);
-        $dishToUpdate = Dish::findOrFail($id);
-        $dishToUpdate->update($request->all());
-
-        return new DishResource($dishToUpdate);
+        try {
+            $dishToUpdate = Dish::findOrFail($id);
+            $dishToUpdate->update($request->all());
+            return new DishResource($dishToUpdate);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'dish not found'], 404);
+        }
     }
 
     /**
@@ -80,11 +87,14 @@ class DishController extends Controller
      */
     public function destroy($id)
     {
-        $dishToDelete = Dish::findOrFail($id);
-        if($dishToDelete->delete())
-        {
+        try {
+            $dishToDelete = Dish::findOrFail($id);
+            $dishToDelete->delete();
             return response()->json([], 204);
-        }        
-
+        } 
+        catch (\Exception $e) 
+        {
+            return response()->json(['message' => 'dish not found'], 404);
+        }
     }
 }

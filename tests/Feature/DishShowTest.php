@@ -21,4 +21,15 @@ class DishShowTest extends TestCase
             ->assertJsonFragment(['title' => 'arepa']);
             
     }
+    public function test_making_an_api_show_fails()
+    {
+        $this->withoutExceptionHandling();
+        Dish::factory()->create(['title' => 'arepa']);
+
+        $response = $this->getJson('/api/dishes/100');
+        $response
+            ->assertStatus(404)
+            ->assertJsonFragment(['message'=>'dish not found']);            
+    }
+
 }

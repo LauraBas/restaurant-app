@@ -21,4 +21,15 @@ class DishDeleteTest extends TestCase
             $this->assertDatabaseCount('dishes', 0);
             $this->assertDatabaseMissing('dishes',['title' => 'empanada']);
     }
+
+    public function test_making_an_api_delete_fails()
+    {
+        $this->withoutExceptionHandling();
+        Dish::factory()->create();
+
+        $response = $this->deleteJson('/api/dishes/10');
+        $response
+            ->assertStatus(404)
+            ->assertJsonFragment(['message'=>'dish not found']);
+    }
 }
