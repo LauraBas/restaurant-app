@@ -15,7 +15,7 @@ class DishUpdateTest extends TestCase
         $this->withoutExceptionHandling();
         Dish::factory()->create();
         $dish = ['title' => 'arepa', 'description'=>'rica','price'=>'5.12'];
-        $response = $this->putJson('/api/dishes/1', $dish );
+        $response = $this->patchJson('/api/dishes/1', $dish );
         $response
             ->assertStatus(200)
             ->assertJsonFragment(['title' => 'arepa']);
@@ -28,9 +28,9 @@ class DishUpdateTest extends TestCase
         $this->withoutExceptionHandling();
         Dish::factory()->create();
         $dish = ['title' => 'arepa', 'description'=>'rica','price'=>'5.12'];
-        $response = $this->putJson('/api/dishes/100', $dish );
+        $response = $this->patchJson('/api/dishes/100', $dish );
         $response
             ->assertStatus(404)
             ->assertJsonFragment(['message'=>'dish not found']);            
     }
-}
+ }

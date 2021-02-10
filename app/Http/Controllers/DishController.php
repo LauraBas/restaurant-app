@@ -68,9 +68,9 @@ class DishController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:200',
-            'price' => 'required|numeric',
+            'title' => 'string|max:100',
+            'description' => 'string|max:200',
+            'price' => 'numeric',
         ]);
         try
         {
