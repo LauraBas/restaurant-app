@@ -39028,6 +39028,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-warning",
                       on: {
                         click: function($event) {
                           return _vm.deActivateInEditMode()
@@ -39040,6 +39041,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-success",
                       on: {
                         click: function($event) {
                           return _vm.updateDish(dish.id)
@@ -39109,6 +39111,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-warning",
                       on: {
                         click: function($event) {
                           return _vm.deActivateInEditMode()
@@ -39121,6 +39124,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-success",
                       on: {
                         click: function($event) {
                           return _vm.updateDish(dish.id)
@@ -39190,6 +39194,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-warning",
                       on: {
                         click: function($event) {
                           return _vm.deActivateInEditMode()
@@ -39202,6 +39207,7 @@ var render = function() {
                   _c(
                     "button",
                     {
+                      staticClass: "btn btn-success",
                       on: {
                         click: function($event) {
                           return _vm.updateDish(dish.id)

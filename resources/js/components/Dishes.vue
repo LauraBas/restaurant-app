@@ -86,20 +86,20 @@
                         <td v-on:click="activateInEditMode('title')" v-show="!isEditingTitle">{{ dish.title }}</td>
                             <span v-show="isEditingTitle" >
                                 <input v-model="dish.title" type="text" class="form-control" >
-                                <button @click="deActivateInEditMode()">Cancel</button>
-                                <button @click="updateDish(dish.id)">Save</button>
+                                <button class="btn btn-warning"@click="deActivateInEditMode()">Cancel</button>
+                                <button class="btn btn-success"@click="updateDish(dish.id)">Save</button>
                             </span>
                         <td  v-on:click="activateInEditMode('description')" v-show="!isEditingDescription">{{ dish.description }}</td>
                             <span v-show="isEditingDescription" >
                                 <input v-model="dish.description" type="text" class="form-control" >
-                                <button @click="deActivateInEditMode()">Cancel</button>
-                                <button @click="updateDish(dish.id)">Save</button>
+                                <button class="btn btn-warning"@click="deActivateInEditMode()">Cancel</button>
+                                <button class="btn btn-success" @click="updateDish(dish.id)">Save</button>
                             </span>
                         <td v-on:click="activateInEditMode('price')" v-show="!isEditingPrice">{{ dish.price }}</td>
                             <span v-show="isEditingPrice" >
                                 <input v-model="dish.price" type="number" class="form-control" >
-                                <button @click="deActivateInEditMode()">Cancel</button>
-                                <button @click="updateDish(dish.id)">Save</button>
+                                <button class="btn btn-warning"@click="deActivateInEditMode()">Cancel</button>
+                                <button class="btn btn-success"@click="updateDish(dish.id)">Save</button>
                             </span>
                         <td>
                             <button
@@ -178,7 +178,7 @@ export default {
         deActivateInEditMode() {
             this.isEditingTitle = false
             this.isEditingDescription = false
-            this.isEditingPrice = false
+            this.isEditingPrice = false            
         }
     }
 };
