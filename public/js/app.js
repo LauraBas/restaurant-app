@@ -1972,11 +1972,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       dishes: [],
       modal: 0,
+      isEditingTitle: 0,
+      isEditingDescription: 0,
+      isEditingPrice: 0,
       dish: {
         title: '',
         description: '',
@@ -2064,6 +2077,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3);
       }))();
     },
+    updateDish: function updateDish(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios.put("http://127.0.0.1:8001/api/dishes/".concat(id));
+
+              case 2:
+                res = _context4.sent;
+
+                _this4.deActivateInEditMode();
+
+              case 4:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
     openModal: function openModal() {
       this.modal = 1;
       this.id = 0;
@@ -2073,6 +2111,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     closeModal: function closeModal() {
       this.modal = 0;
+    },
+    activateInEditMode: function activateInEditMode(name) {
+      if (name == 'title') {
+        this.isEditingTitle = true;
+      }
+
+      if (name == 'description') {
+        this.isEditingDescription = true;
+      }
+
+      if (name == 'price') {
+        this.isEditingPrice = true;
+      }
+    },
+    deActivateInEditMode: function deActivateInEditMode() {
+      this.isEditingTitle = false;
+      this.isEditingDescription = false;
+      this.isEditingPrice = false;
     }
   }
 });
@@ -38914,13 +38970,248 @@ var render = function() {
             return _c("tr", { key: dish.id }, [
               _c("th", { attrs: { scope: "row" } }, [_vm._v(_vm._s(dish.id))]),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(dish.title))]),
+              _c(
+                "td",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isEditingTitle,
+                      expression: "!isEditingTitle"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.activateInEditMode("title")
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(dish.title))]
+              ),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(dish.description))]),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isEditingTitle,
+                      expression: "isEditingTitle"
+                    }
+                  ]
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: dish.title,
+                        expression: "dish.title"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: dish.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(dish, "title", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deActivateInEditMode()
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.updateDish(dish.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(dish.price))]),
+              _c(
+                "td",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isEditingDescription,
+                      expression: "!isEditingDescription"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.activateInEditMode("description")
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(dish.description))]
+              ),
               _vm._v(" "),
-              _vm._m(2, true),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isEditingDescription,
+                      expression: "isEditingDescription"
+                    }
+                  ]
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: dish.description,
+                        expression: "dish.description"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: dish.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(dish, "description", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deActivateInEditMode()
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.updateDish(dish.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: !_vm.isEditingPrice,
+                      expression: "!isEditingPrice"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.activateInEditMode("price")
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(dish.price))]
+              ),
+              _vm._v(" "),
+              _c(
+                "span",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.isEditingPrice,
+                      expression: "isEditingPrice"
+                    }
+                  ]
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: dish.price,
+                        expression: "dish.price"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number" },
+                    domProps: { value: dish.price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(dish, "price", $event.target.value)
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deActivateInEditMode()
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.updateDish(dish.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  )
+                ]
+              ),
               _vm._v(" "),
               _c("td", [
                 _c(
@@ -38972,16 +39263,6 @@ var staticRenderFns = [
         _c("th", [_vm._v("Price")]),
         _vm._v(" "),
         _c("th", { attrs: { colspan: "2" } }, [_vm._v("Actions")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-info" }, [
-        _vm._v("\n                            edit\n                        ")
       ])
     ])
   }

@@ -83,14 +83,24 @@
                 <tbody>
                     <tr v-for="dish in dishes.data" :key="dish.id">
                         <th scope="row">{{ dish.id }}</th>
-                        <td>{{ dish.title }}</td>
-                        <td>{{ dish.description }}</td>
-                        <td>{{ dish.price }}</td>
-                        <td>
-                            <button class="btn btn-info">
-                                edit
-                            </button>
-                        </td>
+                        <td v-on:click="activateInEditMode('title')" v-show="!isEditingTitle">{{ dish.title }}</td>
+                            <span v-show="isEditingTitle" >
+                                <input v-model="dish.title" type="text" class="form-control" >
+                                <button @click="deActivateInEditMode()">Cancel</button>
+                                <button @click="updateDish(dish.id)">Save</button>
+                            </span>
+                        <td  v-on:click="activateInEditMode('description')" v-show="!isEditingDescription">{{ dish.description }}</td>
+                            <span v-show="isEditingDescription" >
+                                <input v-model="dish.description" type="text" class="form-control" >
+                                <button @click="deActivateInEditMode()">Cancel</button>
+                                <button @click="updateDish(dish.id)">Save</button>
+                            </span>
+                        <td v-on:click="activateInEditMode('price')" v-show="!isEditingPrice">{{ dish.price }}</td>
+                            <span v-show="isEditingPrice" >
+                                <input v-model="dish.price" type="number" class="form-control" >
+                                <button @click="deActivateInEditMode()">Cancel</button>
+                                <button @click="updateDish(dish.id)">Save</button>
+                            </span>
                         <td>
                             <button
                                 @click="deleteDish(dish.id)"
@@ -111,7 +121,10 @@ export default {
     data() {
         return {
             dishes: [],
-            modal: 0,           
+            modal: 0, 
+            isEditingTitle: 0,          
+            isEditingDescription: 0,          
+            isEditingPrice: 0,          
             dish: {
                 title:'',
                 description:'',
@@ -136,6 +149,11 @@ export default {
             this.closeModal();
             this.getDishes();
         },
+        async updateDish(id) {
+            const res = await axios.put(`http://127.0.0.1:8001/api/dishes/${id}`);
+            this.deActivateInEditMode();
+            
+        },
         openModal() {  
             this.modal = 1;          
             this.id = 0;
@@ -145,6 +163,22 @@ export default {
         },
         closeModal() {
             this.modal = 0;
+        },
+
+        activateInEditMode(name) {
+            if(name == 'title'){
+                this.isEditingTitle = true
+            } if (name == 'description'){
+                this.isEditingDescription = true
+            }if (name == 'price'){
+                this.isEditingPrice = true
+            }
+            
+        },
+        deActivateInEditMode() {
+            this.isEditingTitle = false
+            this.isEditingDescription = false
+            this.isEditingPrice = false
         }
     }
 };
