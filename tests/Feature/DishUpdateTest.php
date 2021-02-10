@@ -23,6 +23,19 @@ class DishUpdateTest extends TestCase
             
     }
 
+    public function test_making_an_api_update_one_field()
+    {
+        $this->withoutExceptionHandling();
+        Dish::factory()->create(['title' => 'empanada', 'description'=>'rica','price'=>'5.12']);
+        $dish = ['title' => 'arepa'];
+        $response = $this->patchJson('/api/dishes/1', $dish );
+        $response
+            ->assertStatus(200)
+            ->assertJsonFragment(['title' => 'arepa']);
+        $this->assertDatabaseHas('dishes',['title' => 'arepa', 'description'=>'rica','price'=>'5.12']);
+            
+    }
+
     public function test_making_an_api_update_fails()
     {
         $this->withoutExceptionHandling();
