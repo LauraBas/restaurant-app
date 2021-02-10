@@ -24,7 +24,7 @@ class DishFactory extends Factory
         return [
             'title' => $this->faker->text(10),
             'description' => $this->faker->text(50),
-            'price' => $this->faker->randomNumber()
+            'price' => 12.12
         ];
     }
 }
