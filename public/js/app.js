@@ -2087,7 +2087,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context4.prev = _context4.next) {
               case 0:
                 _context4.next = 2;
-                return axios.put("http://127.0.0.1:8001/api/dishes/".concat(id));
+                return axios.patch("http://127.0.0.1:8001/api/dishes/".concat(id));
 
               case 2:
                 res = _context4.sent;

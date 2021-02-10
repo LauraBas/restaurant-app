@@ -150,7 +150,7 @@ export default {
             this.getDishes();
         },
         async updateDish(id) {
-            const res = await axios.put(`http://127.0.0.1:8001/api/dishes/${id}`);
+            const res = await axios.patch(`http://127.0.0.1:8001/api/dishes/${id}`);
             this.deActivateInEditMode();
             
         },
