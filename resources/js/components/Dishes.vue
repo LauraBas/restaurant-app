@@ -17,6 +17,7 @@
 
                         <!-- Modal body -->
                         <div class="modal-body">
+                        <form @submit.prevent="storeDish()">
                             <div class="modal-body">
                                 <div class="my-4">
                                     <label for="nombre">Title</label>
@@ -47,24 +48,25 @@
                                     />
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button
-                                class="btn btn-warning"
-                                data-dismiss="modal"
-                                @click="closeModal()"
-                            >
-                                cancel
-                            </button>
-                            <button
-                                class="btn btn-success"
-                                data-dismiss="modal"
-                                @click="storeDish()"
-                            >
-                                save
-                            </button>
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button
+                                    class="btn btn-warning"
+                                    data-dismiss="modal"
+                                    @click="closeModal()"
+                                >
+                                    cancel
+                                </button>
+                                <button
+                                    class="btn btn-success"
+                                    data-dismiss="modal"
+                                    type="submit"
+                                >
+                                    save
+                                </button>
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -117,6 +119,8 @@
 </template>
 
 <script>
+import ApiClient from '../../../src/services/ApiClient.js';
+
 export default {
     data() {
         return {
@@ -137,20 +141,21 @@ export default {
     },
     methods: {
         async getDishes() {
-            const res = await axios.get(`http://127.0.0.1:8001/api/dishes`);
+            const res = await ApiClient.getDishApi();
             this.dishes = res.data;
         },
         async deleteDish(id) {
-            const res = await axios.delete(`http://127.0.0.1:8001/api/dishes/${id}`);
+            const res = await ApiClient.deleteDishApi(id);
             this.getDishes();
         },
         async storeDish() {
-            const res = await axios.post(`http://127.0.0.1:8001/api/dishes`, this.dish);
+            const dish = this.dish;
+            const res = await ApiClient.storeDishApi(dish);
             this.closeModal();
             this.getDishes();
         },
         async updateDish(id) {
-            const res = await axios.patch(`http://127.0.0.1:8001/api/dishes/${id}`);
+            const res = await ApiClient.updateDishApi(id);
             this.deActivateInEditMode();
             
         },
